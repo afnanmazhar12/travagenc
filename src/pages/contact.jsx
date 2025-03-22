@@ -3,167 +3,165 @@ import { motion } from 'framer-motion'
 import './contact.css'
 
 function Contact() {
+  const [activeInput, setActiveInput] = useState(null)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    destination: '',
     travelDate: '',
+    destination: '',
     message: ''
   })
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData)
-  }
-
   return (
-    <div className="travel-contact-wrapper">
-      <div className="parallax-bg"></div>
+    <div className="luxury-travel-page">
+      <div className="travel-bg"></div>
       
       <motion.div 
-        className="contact-container"
+        className="content-container"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        <div className="contact-header">
-          <motion.h1
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2 }}
+        <div className="side-panel">
+          <motion.div 
+            className="brand-section"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.3 }}
           >
-            Start Your Journey
-          </motion.h1>
-          <motion.p
-            initial={{ y: -30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.4 }}
-          >
-            Let's plan your perfect getaway together
-          </motion.p>
-        </div>
+            <h2>Luxury Escapes</h2>
+            <p>Where dreams meet destinations</p>
+          </motion.div>
 
-        <div className="contact-content">
+          <motion.div 
+            className="featured-destinations"
+            initial={{ x: -50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.5 }}
+          >
+            <div className="destination-card maldives">
+              <span className="destination-name">Maldives</span>
+              <span className="destination-price">from $2,999</span>
+            </div>
+            <div className="destination-card santorini">
+              <span className="destination-name">Santorini</span>
+              <span className="destination-price">from $2,499</span>
+            </div>
+            <div className="destination-card bali">
+              <span className="destination-name">Bali</span>
+              <span className="destination-price">from $1,999</span>
+            </div>
+          </motion.div>
+
           <motion.div 
             className="contact-info"
             initial={{ x: -50, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.6 }}
+            transition={{ delay: 0.7 }}
           >
-            <div className="info-card">
-              <div className="card-icon">
-                <i className="fas fa-map-marked-alt"></i>
+            <div className="info-item">
+              <i className="fas fa-phone"></i>
+              <div>
+                <h4>Call Us</h4>
+                <p>+1 (555) 123-4567</p>
               </div>
-              <h3>Visit Our Office</h3>
-              <p>123 Paradise Street</p>
-              <p>Travel City, TC 12345</p>
             </div>
-
-            <div className="info-card">
-              <div className="card-icon">
-                <i className="fas fa-clock"></i>
-              </div>
-              <h3>Office Hours</h3>
-              <p>Monday - Friday: 9AM - 6PM</p>
-              <p>Saturday: 10AM - 4PM</p>
-            </div>
-
-            <div className="info-card">
-              <div className="card-icon">
-                <i className="fas fa-phone-alt"></i>
-              </div>
-              <h3>Contact Info</h3>
-              <p>Phone: +1 (555) 123-4567</p>
-              <p>Email: adventures@travelagency.com</p>
-            </div>
-
-            <div className="featured-destinations">
-              <h3>Popular Destinations</h3>
-              <div className="destination-tags">
-                <span>Bali</span>
-                <span>Maldives</span>
-                <span>Santorini</span>
-                <span>Paris</span>
-                <span>Tokyo</span>
+            <div className="info-item">
+              <i className="fas fa-envelope"></i>
+              <div>
+                <h4>Email Us</h4>
+                <p>luxury@travels.com</p>
               </div>
             </div>
           </motion.div>
+        </div>
 
-          <motion.form 
-            className="inquiry-form"
-            initial={{ x: 50, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            onSubmit={handleSubmit}
-          >
-            <h2>Plan Your Trip</h2>
-            
+        <motion.div 
+          className="form-section"
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
+        >
+          <div className="form-header">
+            <h1>Plan Your Luxury Getaway</h1>
+            <p>Let us craft your perfect escape</p>
+          </div>
+
+          <form className="luxury-form">
             <div className="form-grid">
-              <div className="form-group">
+              <div className={`input-group ${activeInput === 'name' ? 'active' : ''}`}>
                 <input
                   type="text"
                   required
+                  onFocus={() => setActiveInput('name')}
+                  onBlur={() => setActiveInput(null)}
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  placeholder="Your Name"
                 />
-                <i className="fas fa-user"></i>
+                <label>Full Name</label>
               </div>
 
-              <div className="form-group">
+              <div className={`input-group ${activeInput === 'email' ? 'active' : ''}`}>
                 <input
                   type="email"
                   required
+                  onFocus={() => setActiveInput('email')}
+                  onBlur={() => setActiveInput(null)}
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  placeholder="Your Email"
                 />
-                <i className="fas fa-envelope"></i>
+                <label>Email Address</label>
               </div>
             </div>
 
             <div className="form-grid">
-              <div className="form-group">
-                <input
-                  type="text"
-                  value={formData.destination}
-                  onChange={(e) => setFormData({...formData, destination: e.target.value})}
-                  placeholder="Desired Destination"
-                />
-                <i className="fas fa-globe-americas"></i>
-              </div>
-
-              <div className="form-group">
+              <div className={`input-group ${activeInput === 'date' ? 'active' : ''}`}>
                 <input
                   type="date"
+                  required
+                  onFocus={() => setActiveInput('date')}
+                  onBlur={() => setActiveInput(null)}
                   value={formData.travelDate}
                   onChange={(e) => setFormData({...formData, travelDate: e.target.value})}
                 />
-                <i className="fas fa-calendar-alt"></i>
+                <label>Travel Date</label>
+              </div>
+
+              <div className={`input-group ${activeInput === 'destination' ? 'active' : ''}`}>
+                <input
+                  type="text"
+                  required
+                  onFocus={() => setActiveInput('destination')}
+                  onBlur={() => setActiveInput(null)}
+                  value={formData.destination}
+                  onChange={(e) => setFormData({...formData, destination: e.target.value})}
+                />
+                <label>Desired Destination</label>
               </div>
             </div>
 
-            <div className="form-group">
+            <div className={`input-group ${activeInput === 'message' ? 'active' : ''}`}>
               <textarea
                 required
+                onFocus={() => setActiveInput('message')}
+                onBlur={() => setActiveInput(null)}
                 value={formData.message}
                 onChange={(e) => setFormData({...formData, message: e.target.value})}
-                placeholder="Tell us about your dream vacation..."
               ></textarea>
-              <i className="fas fa-pencil-alt"></i>
+              <label>Tell us about your dream vacation</label>
             </div>
 
             <motion.button
               type="submit"
-              className="submit-btn"
+              className="submit-button"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              Start Planning
-              <i className="fas fa-paper-plane"></i>
+              Begin Your Journey
+              <i className="fas fa-arrow-right"></i>
             </motion.button>
-          </motion.form>
-        </div>
+          </form>
+        </motion.div>
       </motion.div>
     </div>
   )
